@@ -6,23 +6,20 @@ This software learns a word embedding from the input co-occurrence matrix (prefe
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-### Prerequisites
+### Prerequisites for input preparation
 
 The input to this algorithm is a word-word co-occurrence matrix. For calculating this co-occurrence matrix, we use existing software from GloVe which can be downloaded at:
 
-[vocab_count](https://github.com/stanfordnlp/GloVe/blob/master/src/vocab_count.c) - This file is used to scan the corpus and build a vocabulary.
+* [vocab_count](https://github.com/stanfordnlp/GloVe/blob/master/src/vocab_count.c) - This file is used to scan the corpus and build a vocabulary.
+* [cooccur](https://github.com/stanfordnlp/GloVe/blob/master/src/cooccur.c) - This file is used, given a vocabulary, to calculate the word-word co-occurrence matrix.
 
-[cooccur](https://github.com/stanfordnlp/GloVe/blob/master/src/cooccur.c) - This file is used, given a vocabulary, to calculate the word-word co-occurrence matrix.
+### Compiling the source code
 
-```
-Give examples
-```
+The source code of the software is written in C and can be compiled using standard C compilers in any operating system (Linux, Windows, and macOS). To compile the prerequisites use:
 
-### Installing
+gcc -Wall -m64 -O3 vocab_count.c -o vocab_count -lm -lpthread
 
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
+gcc -Wall -m64 -O3 vocab_count.c -o vocab_count -lm -lpthread
 
 ```
 Give the example
