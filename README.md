@@ -63,6 +63,10 @@ For our algorithm `svdns` there are several switches that can be used:
 * -input \<file\>: Specifies the input co-occurrence file. This co-occurrence file is the output of `cooccur`.
 * -output \<file\>: Specifies the output embedding file. The resulting word vectors will be stored in this file.
 
+## Pre-trained word vectors
+
+We have run our algorithm on Wikipedia dump of 20160305 and the pre-trained word vectors file `svdns_wikipedia20160305_d100` which contains the first 100,000 frequent words can be downloaded at: [https://github.com/behrouzhs/svdns/blob/master/svdns_wikipedia20160305_d100.zip](https://github.com/behrouzhs/svdns/blob/master/svdns_wikipedia20160305_d100.zip)
+
 ## License
 
 The algorithm borrows Singular Value Decomposition (SVD) part from SVDLIBC (open source) which is based on ATLAS (open source) linear algebra library. This software is provided for the reviewers' attention (NIPS 2017) and it will be licensed under GNU GPL. Redistributions of the software in either source code or binary form is not permitted for now.
