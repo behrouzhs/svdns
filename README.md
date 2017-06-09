@@ -54,9 +54,10 @@ For `cooccur` you need to use a proper `window-size`. Reasonable range for `wind
 
 For our algorithm `svdns` there are several switches that can be used:
 
-* -pmi2, -pmi10: base 2 and base 10 Pointwise Mutual Information (PMI) calculation. If not specified, matrix factorization will be done on co-occurrence matrix rather than PMI matrix (which will be a simple SVD on co-occurrences and is not our algorithm).
-* -pmicutoff \<float\>: Using this option will set all the PMI values less than cutoff threshold to zero and the matrix will become sparser.
-* -shift \<float\>: It will shift all the PMI values by a positive or negative value.
+* -pmi2, -pmi10: Base 2 or base 10 Pointwise Mutual Information (PMI) calculation. If not specified, matrix factorization will be done on co-occurrence matrix rather than PMI matrix (which will be a simple SVD on co-occurrences and is not our algorithm).
+* -pmicutoff \<float\>: Using this option will set all the PMI values less than cutoff threshold to zero and the matrix will become sparser. (default: -\infty)
+* -shift \<float\>: It will shift all the PMI values by a positive or negative value. (default: 0)
+* -dimension \<int\>: The dimensionality of the word embedding. (default: 100)
 
 ## License
 
