@@ -39,50 +39,22 @@ These types of corpuses require a lot of preprocessing such as removing HTML tag
 After downloading and extracting the zip file, and also preprocessing steps you will get the clean text file. Let's call the clean text file `corpus_clean.txt`. In order to train and obtain a word embedding, run the following 3 commands one after another:
 
 ```
-$ ./vocab_count -min-count 5 -verbose 2 < ./corpus_clean.txt > ./vocab.txt
-$ ./cooccur -vocab-file ./vocab.txt -verbose 2 -window-size 10 < ./corpus_clean.txt > ./cooccurrence_matrix.bin
-$ ./svdns -p2 -cp -2.5 -sh 2.5 -d 100 -t 8 -w 3 -v 1 -o ./svdns_embedding_d100.txt -i ./cooccurrence_matrix.bin -b ./vocab.txt
+$ ./vocab_count -min-count 5 < ./corpus_clean.txt > ./vocab.txt
+$ ./cooccur -window-size 10 -vocab-file ./vocab.txt < ./corpus_clean.txt > ./cooccurrence_matrix.bin
+$ ./svdns -pmi2 -pmicutoff -2.5 -shift 2.5 -dimension 100 -thread 8 -vocab ./vocab.txt -input ./cooccurrence_matrix.bin -output ./svdns_embedding_d100.txt
 ```
 
-### Break down into end to end tests
+After running the above commands, `svdns_embedding_d100.txt` will be generated which contains the word embeddings. Each row will contain a word and its corresponding vector representation.
 
-Explain what these tests test and why
+## Options and switches for executing the code
 
-```
-Give an example
-```
+For `vocab_count` it is good to limit the vocabulary to the words occuring at least `-min-count` times. This option will remove extremely rare words from the vocabulary.
 
-### And coding style tests
+For `cooccur` you need to use a proper `window-size`. Reasonable range for `window-size` is between 5 and 15.
 
-Explain what these tests test and why
+For our algorithm `svdns` there are several switches that can be used:
 
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* -pmi2, pmi10: base 2 and base 10 Pointwise Mutual Information (PMI) calculation
 
 ## License
 
