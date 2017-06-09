@@ -65,7 +65,7 @@ For our algorithm `svdns` there are several switches that can be used:
 
 ## Pre-trained word vectors
 
-We have run our algorithm on Wikipedia dump of 20160305 and the pre-trained word vectors file `svdns_wikipedia20160305_d100` which contains the first 100,000 frequent words can be downloaded at:
+We have run our algorithm on Wikipedia dump of 20160305 and the pre-trained word vectors file `svdns_wikipedia20160305_d100` which contains the first 100,000 frequent words can be downloaded at the following link. Our trained word vectors contain 163,188 words but because of file size limitation on GitHub we removed the bottom infrequent ones.
 
 [https://github.com/behrouzhs/svdns/blob/master/svdns_wikipedia20160305_d100.zip](https://github.com/behrouzhs/svdns/blob/master/svdns_wikipedia20160305_d100.zip)
 
