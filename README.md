@@ -65,10 +65,5 @@ For our algorithm `svdns` there are several switches that can be used:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+The algorithm borrows Singular Value Decomposition (SVD) part from SVDLIBC (open source) which is based on ATLAS (open source) linear algebra library. This software is provided for the reviewers' attention (NIPS 2017) and it will be licensed under GNU GPL. Redistributions of the software in either source code or binary form is not permitted for now.
 
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
