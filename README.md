@@ -30,9 +30,19 @@ $ gcc -Wall -fopenmp -m64 -O3 svdns.c -o svdns -lm
 
 Our program uses OpenMP shared memory multi-threading library which is standard and is implemented in almost every C compiler. If you ignore `-fopenmp` switch, it will run on a single thread, however, for better performance use this option.
 
-## Running the tests
+## Running the software to train a word embedding
 
-Explain how to run the automated tests for this system
+For this purpose, you need to have a large text corpus (e.g Wikipedia) in a single text file. For instance, dump of June 1st, 2017 of Wikipedia (articles in XML format) can be downloaded at: `https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2`. For the latest dump, you can always refer to `https://dumps.wikimedia.org/enwiki/latest/`.
+
+These types of corpuses require a lot of preprocessing such as removing HTML tags and structure to get clean text from it, handling or removing special characters, etc. We will not go through the details of preprocessing but it is a neccessary step in order to get a high quality embedding with meaningful and manageable sized vocabulary.
+
+After downloading and extracting the zip file, and also preprocessing steps you will get the clean text file. Let's call the clean text file `corpus_clean.txt`. In order to train and obtain a word embedding, run the following 3 commands one after another:
+
+```
+$ ./vocab_count -min-count 5 -verbose 2 < ./corpus_clean.txt > ./vocab.txt
+$ ./cooccur -vocab-file ./vocab.txt -verbose 2 -window-size 10 < ./corpus_clean.txt > ./cooccurrence_matrix.bin
+$ ./svdns -p2 -cp -2.5 -sh 2.5 -d 100 -t 8 -w 3 -v 1 -o ./svdns_embedding_d100.txt -i ./cooccurrence_matrix.bin -b ./vocab.txt
+```
 
 ### Break down into end to end tests
 
