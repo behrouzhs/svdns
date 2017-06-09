@@ -2,24 +2,24 @@
 
 This software learns a word embedding from the input co-occurrence matrix (preferably extracted from a large corpus such as Wikipedia). This work is submitted to NIPS 2017 and is under review.
 
-## Getting Started
+The following instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
-### Prerequisites for input preparation
+## Prerequisites for input preparation
 
 The input to this algorithm is a word-word co-occurrence matrix. For calculating this co-occurrence matrix, we use existing software from GloVe which can be downloaded at:
 
 * [vocab_count](https://github.com/stanfordnlp/GloVe/blob/master/src/vocab_count.c) - This file is used to scan the corpus and build a vocabulary.
 * [cooccur](https://github.com/stanfordnlp/GloVe/blob/master/src/cooccur.c) - This file is used, given a vocabulary, to calculate the word-word co-occurrence matrix.
 
-### Compiling the source code
+## Compiling the source code
 
 The source code of the software is written in C and can be compiled using standard C compilers in any operating system (Linux, Windows, and macOS). To compile the prerequisites use:
 
-`gcc -Wall -m64 -O3 vocab_count.c -o vocab_count -lm -lpthread`
+```
+$ gcc -Wall -m64 -O3 vocab_count.c -o vocab_count -lm -lpthread
 
-`gcc -Wall -m64 -O3 cooccur.c -o cooccur -lm -lpthread`
+$ gcc -Wall -m64 -O3 cooccur.c -o cooccur -lm -lpthread
+```
 
 You can ignore `-Wall` (show all warnings), `-m64` (compile for 64-bit system), `-O3` (optimization level 3). However, `-lm` (link math library) and `-lpthread` (multi-threading library) are required to compile and run the program.
 
@@ -27,7 +27,7 @@ To compile our program run:
 
 `gcc -Wall -fopenmp -m64 -O3 svdns.c -o svdns -lm`
 
-Our program uses OpenMP shared memory multi-threading library which is standard and is implemented in almost every C compiler. If you ignore `-fopenmp` switch it will run on a single thread, however, for better performance use this option.
+Our program uses OpenMP shared memory multi-threading library which is standard and is implemented in almost every C compiler. If you ignore `-fopenmp` switch, it will run on a single thread, however, for better performance use this option.
 
 ## Running the tests
 
