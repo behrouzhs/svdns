@@ -17,9 +17,8 @@ The input to this algorithm is a word-word co-occurrence matrix. For calculating
 
 The source code of the software is written in C and can be compiled using standard C compilers in any operating system (Linux, Windows, and macOS). To compile the prerequisites use:
 
-gcc -Wall -m64 -O3 vocab_count.c -o vocab_count -lm -lpthread
-
-gcc -Wall -m64 -O3 vocab_count.c -o vocab_count -lm -lpthread
+`gcc -Wall -m64 -O3 vocab_count.c -o vocab_count -lm -lpthread`
+`gcc -Wall -m64 -O3 vocab_count.c -o vocab_count -lm -lpthread`
 
 ```
 Give the example
