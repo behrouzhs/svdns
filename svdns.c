@@ -1,6 +1,6 @@
 /*
 Spectral Word Embedding with Negative Sampling (SVD-NS)
-The SVD code is taken from SVDLIBC (with the following copyright) 
+The SVD code is taken from SVDLIBC (with the following copyright)
 SVDLIBC is based on ATLAS library which is a fast linear algebra toolkit.
 
 SVDLIBC Copyright
@@ -87,7 +87,7 @@ double timer()
 #define LMTNW   100000000 /* max. size of working area allowed  */
 
 #define DEFAULT_DIM 100
-#define DEFAULT_THREAD 1
+#define DEFAULT_THREAD 4
 #define DEFAULT_SHIFT 0.0
 #define DEFAULT_CUTP -DBL_MAX
 #define SORT_FUNC NS_compare_colloc_rowmajor
@@ -3658,7 +3658,7 @@ int main(int argc, char *argv[]) {
 	int takeLog = 0, takeLogBefore = 0;
 	int takeSqrt = 0, takeSqrtBefore = 0;
 	int takePMI = 0, contextDistSmooth = 0;
-	int writeMode = 3, verbose = 1;
+	int writeMode = 1, verbose = 1;
 	double pmiThreshold = DEFAULT_CUTP;
 	double pmiShift = DEFAULT_SHIFT;
 	double las2end[2] = { -1.0e-30, 1.0e-30 };
@@ -3682,7 +3682,7 @@ int main(int argc, char *argv[]) {
 	else
 		NS_usage(argv[0]);
 
-	if ((i = NS_parse_arg((char *)"-o", argc, argv, 1)) > 0 || (i = NS_parse_arg((char *)"-embedding", argc, argv, 1)) > 0)
+	if ((i = NS_parse_arg((char *)"-o", argc, argv, 1)) > 0 || (i = NS_parse_arg((char *)"-output", argc, argv, 1)) > 0 || (i = NS_parse_arg((char *)"-embedding", argc, argv, 1)) > 0)
 		strcpy(vectorFile, argv[i + 1]);
 	else
 		NS_usage(argv[0]);
@@ -3778,7 +3778,7 @@ int main(int argc, char *argv[]) {
 	DMat R2 = svdNewDMat(R->Ut->cols, R->d);
 	for (ir = 0; ir < R->Ut->cols; ir++)
 		for (ic = 0; ic < R->d; ic++)
-			R2->value[ir][ic] = (R->Ut->value[ic][ir]) * sqrt(R->S[ic]);
+			R2->value[ir][ic] = (R->Ut->value[ic][ir]);
 
 	//NS_normalize_cols(R2);
 	//NS_normalize_rows(R2);
@@ -3805,7 +3805,7 @@ int main(int argc, char *argv[]) {
 			DMat R_temp = svdNewDMat(R->Ut->cols, R->d);
 			for (ir = 0; ir < R->Ut->cols; ir++)
 				for (ic = 0; ic < R->d; ic++)
-					R_temp->value[ir][ic] = (R->Ut->value[ic][ir]) * (R->S[ic]);
+					R_temp->value[ir][ic] = (R->Ut->value[ic][ir]) * sqrt(R->S[ic]);
 
 			//printf("\n\nLength of U x S\n");
 			//for (i = 0; i < 5; i++)
@@ -3819,7 +3819,7 @@ int main(int argc, char *argv[]) {
 			//}
 
 			char filename[512];
-			sprintf(filename, "%s-UxS.txt", vectorFile);
+			sprintf(filename, "%s-Uxs.txt", vectorFile);
 			NS_write_output_file(vocabFile, filename, R_temp);
 			svdFreeDMat(R_temp);
 		}
@@ -3829,7 +3829,7 @@ int main(int argc, char *argv[]) {
 			DMat R_temp = svdNewDMat(R->Ut->cols, R->d);
 			for (ir = 0; ir < R->Ut->cols; ir++)
 				for (ic = 0; ic < R->d; ic++)
-					R_temp->value[ir][ic] = (R->Ut->value[ic][ir]);
+					R_temp->value[ir][ic] = (R->Ut->value[ic][ir]) * (R->S[ic]);
 
 			//printf("\n\nLength of U\n");
 			//for (i = 0; i < 5; i++)
@@ -3843,7 +3843,7 @@ int main(int argc, char *argv[]) {
 			//}
 
 			char filename[512];
-			sprintf(filename, "%s-U.txt", vectorFile);
+			sprintf(filename, "%s-UxS.txt", vectorFile);
 			NS_write_output_file(vocabFile, filename, R_temp);
 			svdFreeDMat(R_temp);
 		}
