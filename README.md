@@ -18,19 +18,16 @@ The input to this algorithm is a word-word co-occurrence matrix. For calculating
 The source code of the software is written in C and can be compiled using standard C compilers in any operating system (Linux, Windows, and macOS). To compile the prerequisites use:
 
 `gcc -Wall -m64 -O3 vocab_count.c -o vocab_count -lm -lpthread`
-`gcc -Wall -m64 -O3 vocab_count.c -o vocab_count -lm -lpthread`
 
-```
-Give the example
-```
+`gcc -Wall -m64 -O3 cooccur.c -o cooccur -lm -lpthread`
 
-And repeat
+You can ignore `-Wall` (show all warnings), `-m64` (compile for 64-bit system), `-O3` (optimization level 3). However, `-lm` (link math library) and `-lpthread` (multi-threading library) are required to compile and run the program.
 
-```
-until finished
-```
+To compile our program run:
 
-End with an example of getting some data out of the system or using it for a little demo
+`gcc -Wall -fopenmp -m64 -O3 svdns.c -o svdns -lm`
+
+Our program uses OpenMP shared memory multi-threading library which is standard and is implemented in almost every C compiler. If you ignore `-fopenmp` switch it will run on a single thread, however, for better performance use this option.
 
 ## Running the tests
 
