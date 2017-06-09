@@ -50,7 +50,7 @@ After running the above commands, `svdns_embedding_d100.txt` will be generated w
 
 For `vocab_count` it is good to limit the vocabulary to the words occuring at least `-min-count` times. This option will remove extremely rare words from the vocabulary.
 
-For `cooccur` you need to use a proper `window-size`. Reasonable range for `window-size` is between 5 and 15.
+For `cooccur` you need to use a proper `-window-size`. Reasonable range for `-window-size` is between 5 and 15.
 
 For our algorithm `svdns` there are several switches that can be used:
 
