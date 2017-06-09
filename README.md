@@ -17,7 +17,6 @@ The source code of the software is written in C and can be compiled using standa
 
 ```
 $ gcc -Wall -m64 -O3 vocab_count.c -o vocab_count -lm -lpthread
-
 $ gcc -Wall -m64 -O3 cooccur.c -o cooccur -lm -lpthread
 ```
 
@@ -25,7 +24,9 @@ You can ignore `-Wall` (show all warnings), `-m64` (compile for 64-bit system), 
 
 To compile our program run:
 
-`gcc -Wall -fopenmp -m64 -O3 svdns.c -o svdns -lm`
+```
+$ gcc -Wall -fopenmp -m64 -O3 svdns.c -o svdns -lm
+```
 
 Our program uses OpenMP shared memory multi-threading library which is standard and is implemented in almost every C compiler. If you ignore `-fopenmp` switch, it will run on a single thread, however, for better performance use this option.
 
