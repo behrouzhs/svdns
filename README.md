@@ -32,7 +32,7 @@ Our program uses OpenMP shared memory multi-threading library which is standard 
 
 ## Running the software to train a word embedding
 
-For this purpose, you need to have a large text corpus (e.g Wikipedia) in a single text file. For instance, dump of June 1st, 2017 of Wikipedia (articles in XML format) can be downloaded at: [https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2](https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2). For the latest dump, you can always refer to [https://dumps.wikimedia.org/enwiki/latest/](https://dumps.wikimedia.org/enwiki/latest/).
+For this purpose, you need to have a large text corpus (e.g Wikipedia) in a single text file. For instance, the latest dump of Wikipedia (articles in XML format) can be downloaded at: [https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2](https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2). For a more complete list please visit: [https://dumps.wikimedia.org/enwiki/latest/](https://dumps.wikimedia.org/enwiki/latest/).
 
 These types of corpuses require a lot of preprocessing such as removing HTML tags and structure to get clean text from it, handling or removing special characters, etc. We will not go through the details of preprocessing but it is a neccessary step in order to get a high quality embedding with meaningful and manageable sized vocabulary.
 
