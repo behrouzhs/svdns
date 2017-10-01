@@ -1,6 +1,6 @@
 # Spectral Word Embedding with Negative Sampling
 
-This software learns a word embedding from the input co-occurrence matrix (preferably extracted from a large corpus such as Wikipedia). This work is submitted to NIPS 2017 and is under review.
+This software learns a word embedding from the input co-occurrence matrix (preferably extracted from a large corpus such as Wikipedia). This work is submitted to AAAI 2018 and is under review.
 
 The following instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
@@ -71,5 +71,7 @@ We have run our algorithm on Wikipedia dump of 20160305 and the pre-trained word
 
 ## License
 
-The algorithm borrows Singular Value Decomposition (SVD) part from SVDLIBC (open source) which is based on ATLAS (open source) linear algebra library. This software is provided for the reviewers' attention (NIPS 2017) and it will be licensed under GNU GPL. Redistributions of the software in either source code or binary form is not permitted for now.
+MIT License
+
+The algorithm borrows Singular Value Decomposition (SVD) part from SVDLIBC (open source) which is based on ATLAS (open source) linear algebra library.
 
