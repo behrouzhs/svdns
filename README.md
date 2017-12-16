@@ -1,6 +1,6 @@
 # Spectral Word Embedding with Negative Sampling
 
-This software learns a word embedding from the input co-occurrence matrix (preferably extracted from a large corpus such as Wikipedia). This work is submitted to AAAI 2018 and is under review.
+This software learns a word embedding from the input co-occurrence matrix (preferably extracted from a large corpus such as Wikipedia). This work is accepted for publication in AAAI 2018.
 
 The following instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
