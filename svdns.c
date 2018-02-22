@@ -88,8 +88,9 @@ double timer()
 
 #define DEFAULT_DIM 100
 #define DEFAULT_THREAD 4
-#define DEFAULT_SHIFT 0.0
-#define DEFAULT_CUTP -DBL_MAX
+#define DEFAULT_SHIFT 2.5
+#define DEFAULT_CUTP -2.5
+#define DEFAULT_PMI_LOG_BASE 2
 #define SORT_FUNC NS_compare_colloc_rowmajor
 //#define SORT_FUNC NS_compare_colloc_colmajor
 
@@ -3533,18 +3534,32 @@ SMat NS_loadPrepareMatrix(char *filename, int takeLogBefore, int takeSqrtBefore,
 void NS_usage(char *progname) {
 	debug("SVD Version %s\n"
 		"SVD part is written by Douglas Rohde based on code adapted from SVDPACKC\n", SVDVersion);
-	debug("Negative sampling and the PMI part is written by Behrouz Haji Soleimani (behrouz.hajisoleimani@dal.ca)\n\n");
+	debug("Negative sampling and the PMI part is written by: \n"
+		  "  Behrouz Haji Soleimani (behrouz.hajisoleimani@dal.ca)\n"
+		  "  The paper describing the algorithm is published at AAAI 2018\n"
+		  "  \"Spectral Word Embedding with Negative Sampling\"\n"
+	      "  Please refer to the paper for more description and don't forget to cite if you use this\n\n");
 
 	debug("usage: %s [options]\n", progname);
-	debug("  -i input_file    path to the input file (it can be either cooccurrence matrix or PMI matrix)\n"
-		"  -b vocab_file    path to the vocabulary file\n"
-		"  -o output_file   Root of files in which to store resulting U,S,V\n"
-		"  -o output_file   Root of files in which to store resulting U,S,V\n"
-		"  -d dimensions    Desired SVD triples (default is 100)\n"
-		"  -e bound         Minimum magnitude of wanted eigenvalues (1e-30)\n"
-		"  -k kappa         Accuracy parameter for las2 (1e-6)\n"
-		"  -t no_thread     number of threads to use in parallel processing\n"
-		"  -v verbosity     Default 1.  0 for no feedback, 2 for more\n");
+	debug("   mandatory parameters:\n"
+		  "      -i <file_path>   path to the input cooccurrence file (it must be symmetric)\n"
+		  "      -b <file_path>   path to the vocabulary file\n"
+		  "      -o <file_path>   path to the output file where the embeddings will be stored\n\n"
+		  "   optional parameters:\n"
+		  "      -d <int>         desired embeddings dimension (default is 100)\n"
+		  "      -cp <float>      PMI cutoff threshold (default is -2.5)\n"
+		  "      -sh <float>      shift PMI values by <float> before factorization (default is 2.5)\n"
+		  "                         note: factorizing the all positive matrix practically yields better embeddings\n"
+		  "      -p10             calculate PMI using log base 10 (if not provided, uses log2 by default)\n"
+		  "      -t <int>         number of threads to use in parallel processing (default is 4)\n"
+		  "      -v <int>         verbosity, default is 1. use 0 for no feedback, 2 for more\n\n"
+		  "   advanced optional parameters (we recommend to use defaults):\n"
+		  "      -e <float>       bound, minimum magnitude of wanted eigenvalues (default is 1e-30)\n"
+		  "      -k <float>       kappa, accuracy parameter for las2 algorithm (default is 1e-6)\n"
+		  "      -w <int>         eigenvector weighting mode (default is 1)\n"
+		  "                         1: no weighting, just return the eigenvectors\n"
+		  "                         2: weight eigenvectors by square root of singular values\n"
+		  "                         3: weight eigenvectors by singular values\n");
 	exit(1);
 }
 
@@ -3657,8 +3672,8 @@ int main(int argc, char *argv[]) {
 	int dimensions = DEFAULT_DIM;
 	int takeLog = 0, takeLogBefore = 0;
 	int takeSqrt = 0, takeSqrtBefore = 0;
-	int takePMI = 0, contextDistSmooth = 0;
-	int writeMode = 1, verbose = 1;
+	int takePMI = DEFAULT_PMI_LOG_BASE, contextDistSmooth = 0;
+	int weightMode = 1, verbose = 1;
 	double pmiThreshold = DEFAULT_CUTP;
 	double pmiShift = DEFAULT_SHIFT;
 	double las2end[2] = { -1.0e-30, 1.0e-30 };
@@ -3755,8 +3770,8 @@ int main(int argc, char *argv[]) {
 	if ((i = NS_parse_arg((char *)"-k", argc, argv, 1)) > 0 || (i = NS_parse_arg((char *)"-kappa", argc, argv, 1)) > 0)
 		kappa = atof(argv[i + 1]);
 
-	if ((i = NS_parse_arg((char *)"-w", argc, argv, 1)) > 0 || (i = NS_parse_arg((char *)"-write", argc, argv, 1)) > 0)
-		writeMode = atoi(argv[i + 1]);
+	if ((i = NS_parse_arg((char *)"-w", argc, argv, 1)) > 0 || (i = NS_parse_arg((char *)"-weight", argc, argv, 1)) > 0)
+		weightMode = atoi(argv[i + 1]);
 
 	omp_set_num_threads(no_thread);
 #pragma omp parallel default(none) shared(no_thread)
@@ -3778,75 +3793,18 @@ int main(int argc, char *argv[]) {
 	DMat R2 = svdNewDMat(R->Ut->cols, R->d);
 	for (ir = 0; ir < R->Ut->cols; ir++)
 		for (ic = 0; ic < R->d; ic++)
-			R2->value[ir][ic] = (R->Ut->value[ic][ir]);
-
-	//NS_normalize_cols(R2);
-	//NS_normalize_rows(R2);
+		{
+			if (weightMode == 2)
+				R2->value[ir][ic] = (R->Ut->value[ic][ir]) * sqrt(R->S[ic]);
+			else if (weightMode == 3)
+				R2->value[ir][ic] = (R->Ut->value[ic][ir]) * (R->S[ic]);
+			else
+				R2->value[ir][ic] = (R->Ut->value[ic][ir]);
+		}
 
 	if (vectorFile) {
 		printf("Writing embedding file...\n");
 		NS_write_output_file(vocabFile, vectorFile, R2);
-
-		//int j;
-		//double len = 0.0;
-		//printf("\n\nLength of U x sqrt(S)\n");
-		//for (i = 0; i < 5; i++)
-		//{
-		//	len = 0.0;
-		//	for (j = 0; j < R2->rows; j++)
-		//		len += R2->value[j][i] * R2->value[j][i];
-		//	if (len > 0)
-		//		len = sqrt(len);
-		//	printf("len(U_%d) = %f    ", i, len);
-		//}
-
-		if (writeMode >= 2)
-		{
-			DMat R_temp = svdNewDMat(R->Ut->cols, R->d);
-			for (ir = 0; ir < R->Ut->cols; ir++)
-				for (ic = 0; ic < R->d; ic++)
-					R_temp->value[ir][ic] = (R->Ut->value[ic][ir]) * sqrt(R->S[ic]);
-
-			//printf("\n\nLength of U x S\n");
-			//for (i = 0; i < 5; i++)
-			//{
-			//	len = 0.0;
-			//	for (j = 0; j < R_temp->rows; j++)
-			//		len += R_temp->value[j][i] * R_temp->value[j][i];
-			//	if (len > 0)
-			//		len = sqrt(len);
-			//	printf("len(U_%d) = %f    ", i, len);
-			//}
-
-			char filename[512];
-			sprintf(filename, "%s-Uxs.txt", vectorFile);
-			NS_write_output_file(vocabFile, filename, R_temp);
-			svdFreeDMat(R_temp);
-		}
-
-		if (writeMode >= 3)
-		{
-			DMat R_temp = svdNewDMat(R->Ut->cols, R->d);
-			for (ir = 0; ir < R->Ut->cols; ir++)
-				for (ic = 0; ic < R->d; ic++)
-					R_temp->value[ir][ic] = (R->Ut->value[ic][ir]) * (R->S[ic]);
-
-			//printf("\n\nLength of U\n");
-			//for (i = 0; i < 5; i++)
-			//{
-			//	len = 0.0;
-			//	for (j = 0; j < R_temp->rows; j++)
-			//		len += R_temp->value[j][i] * R_temp->value[j][i];
-			//	if (len > 0)
-			//		len = sqrt(len);
-			//	printf("len(U_%d) = %f    ", i, len);
-			//}
-
-			char filename[512];
-			sprintf(filename, "%s-UxS.txt", vectorFile);
-			NS_write_output_file(vocabFile, filename, R_temp);
-			svdFreeDMat(R_temp);
-		}
 	}
 	printf("All done!\n");
 
