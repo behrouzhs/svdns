@@ -73,5 +73,5 @@ We have run our algorithm on Wikipedia dump of 20160305 and the pre-trained word
 
 [MIT License](https://opensource.org/licenses/MIT)
 
-The algorithm borrows Singular Value Decomposition (SVD) part from SVDLIBC (open source) which is based on ATLAS (open source) linear algebra library.
+The algorithm borrows Singular Value Decomposition (SVD) part from SVDLIBC (open source under [BSD License](https://tedlab.mit.edu/~dr/SVDLIBC/license.html)) which is based on ATLAS (open source) linear algebra library.
 
