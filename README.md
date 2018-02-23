@@ -54,15 +54,17 @@ For `cooccur` you need to use a proper `-window-size`. Reasonable range for `-wi
 
 For our algorithm `svdns` there are several switches that can be used:
 
-- Mandatory parameters
+* Mandatory parameters:
   * -input \<file\>: Specifies the input co-occurrence file. This co-occurrence file is the output of `cooccur`.
   * -vocab \<file\>: Specifies the input vocabulary file. This vocabulary file is the output of `vocab_count`.
   * -output \<file\>: Specifies the output embedding file. The resulting word vectors will be stored in this file.
-* -pmicutoff \<float\>: Using this option will set all the PMI values less than cutoff threshold to zero and the matrix will become sparser. (default: -2.5)
-* -shift \<float\>: It will shift all the PMI values by \<float\> (default: 2.5). Please note that factorizing the all positive matrix practically yields better embeddings, so try to use `shift=-pmicutoff`
-* -dimension \<int\>: The dimensionality of the word embedding. (default: 100)
-* -thread \<int\>: The number of threads to use in parallel processing. (default: 4)
-* -pmi10: calculate Pointwise Mutual Information (PMI) using base 10 logarithm. If not specified, it will use log2 by default.
+  
+* Optional parameters:
+  * -pmicutoff \<float\>: Using this option will set all the PMI values less than cutoff threshold to zero and the matrix will become sparser. (default: -2.5)
+  * -shift \<float\>: It will shift all the PMI values by \<float\> (default: 2.5). Please note that factorizing the all positive matrix practically yields better embeddings, so try to use `shift=-pmicutoff`
+  * -dimension \<int\>: The dimensionality of the word embedding. (default: 100)
+  * -thread \<int\>: The number of threads to use in parallel processing. (default: 4)
+  * -pmi10: calculate Pointwise Mutual Information (PMI) using base 10 logarithm. If not specified, it will use log2 by default.
 
 ## Pre-trained word vectors
 
