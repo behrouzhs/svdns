@@ -41,7 +41,7 @@ After downloading and extracting the zip file, and also preprocessing steps you 
 ```
 $ ./vocab_count -min-count 5 < ./corpus_clean.txt > ./vocab.txt
 $ ./cooccur -window-size 10 -vocab-file ./vocab.txt < ./corpus_clean.txt > ./cooccurrence_matrix.bin
-$ ./svdns -pmi2 -pmicutoff -2.5 -shift 2.5 -dimension 100 -thread 8 -vocab ./vocab.txt -input ./cooccurrence_matrix.bin -output ./svdns_embedding_d100.txt
+$ ./svdns -pmicutoff -2.5 -shift 2.5 -dimension 100 -thread 8 -vocab ./vocab.txt -input ./cooccurrence_matrix.bin -output ./svdns_embedding_d100.txt
 ```
 
 After running the above commands, `svdns_embedding_d100.txt` will be generated which contains the word embeddings. Each row will contain a word and its corresponding vector representation.
@@ -54,9 +54,10 @@ For `cooccur` you need to use a proper `-window-size`. Reasonable range for `-wi
 
 For our algorithm `svdns` there are several switches that can be used:
 
-* -input \<file\>: Specifies the input co-occurrence file. This co-occurrence file is the output of `cooccur`.
-* -vocab \<file\>: Specifies the input vocabulary file. This vocabulary file is the output of `vocab_count`.
-* -output \<file\>: Specifies the output embedding file. The resulting word vectors will be stored in this file.
+- Mandatory parameters
+  * -input \<file\>: Specifies the input co-occurrence file. This co-occurrence file is the output of `cooccur`.
+  * -vocab \<file\>: Specifies the input vocabulary file. This vocabulary file is the output of `vocab_count`.
+  * -output \<file\>: Specifies the output embedding file. The resulting word vectors will be stored in this file.
 * -pmicutoff \<float\>: Using this option will set all the PMI values less than cutoff threshold to zero and the matrix will become sparser. (default: -2.5)
 * -shift \<float\>: It will shift all the PMI values by \<float\> (default: 2.5). Please note that factorizing the all positive matrix practically yields better embeddings, so try to use `shift=-pmicutoff`
 * -dimension \<int\>: The dimensionality of the word embedding. (default: 100)
