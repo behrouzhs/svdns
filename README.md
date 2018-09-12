@@ -18,9 +18,11 @@ In addition to the standard C compiler, you need the following Python libraries:
 On Linux, gcc is enough for compiling and no extra configuration is needed. On Windows you may (or may not) need to configure some settings or paths. If you get error messages (related to compiler) while running the Python script, add an environment variable called `INCLUDE` and specify the path to the neccessary include directories that the compiler needs. In addition, add another environment variable called `LIB` and specify the path to the neccessary lib directories that the compiler needs. In my computer they are as follows:
 
 * INCLUDE
+
 `C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\SDK\include\ucrt;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\VC\include;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\vcpackages\IntelliSense\iOS\OSS\musl-1.1.10\include;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\vcpackages\IntelliSense\iOS\OSS\musl-1.1.10\arch\x86_64`
 
 * LIB
+
 `C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\SDK\lib;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\VC\lib`
 
 ## Running the software to train a word embedding
