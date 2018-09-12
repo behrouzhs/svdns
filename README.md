@@ -30,9 +30,7 @@ On Linux, __gcc__ is enough for compiling and no extra configuration is needed. 
 
 ```
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\SDK\include\ucrt;
-C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\VC\include;
-C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\vcpackages\IntelliSense\iOS\OSS\musl-1.1.10\include;
-C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\vcpackages\IntelliSense\iOS\OSS\musl-1.1.10\arch\x86_64
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\VC\include
 ```
 
 * LIB
