@@ -15,7 +15,7 @@ In addition to the standard C compiler, you need the following Python libraries:
 
 ### A note for Windows users
 
-On Linux, __gcc__ is enough for compiling and no extra configuration is needed. On Windows, if you have Visual Studio installed you should be good to go. Otherwise, please install __Visual C++ Build Tools__. After that, you probably need to add the path to your cl.exe to the __PATH__ environment variable which in my computer is `C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\VC\bin`. After that, you may (or may not) need to configure some settings or paths again. If you get error messages (related to compiler) while running the Python script, add an environment variable called __INCLUDE__ and specify the path to the neccessary include directories that the compiler needs. In addition, add another environment variable called __LIB__ and specify the path to the neccessary lib directories that the compiler needs. In my computer they are as follows:
+On Linux, __gcc__ is enough for compiling and no extra configuration is needed. On Windows, if you have Visual Studio installed you should be good to go. Otherwise, please install __Visual C++ Build Tools__. After that, you probably need to add the path to your cl.exe to the `PATH` environment variable which in my computer is `C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\VC\bin`. After that, you may (or may not) need to configure some settings or paths again. If you get error messages (related to compiler) while running the Python script, add an environment variable called `INCLUDE` and specify the path to the neccessary include directories that the compiler needs. In addition, add another environment variable called `LIB` and specify the path to the neccessary lib directories that the compiler needs. In my computer they are as follows:
 
 * INCLUDE
 
@@ -37,7 +37,7 @@ For this purpose, you need to have a large text corpus (e.g Wikipedia) in a sing
 
 These types of corpuses require a lot of preprocessing such as removing HTML tags and structure to get clean text from it, handling or removing special characters, etc. We will not go through the details of preprocessing but it is a neccessary step in order to get a high quality embedding with meaningful and manageable sized vocabulary.
 
-After downloading and extracting the zip file, and also preprocessing steps you will get the clean text file. Let's call the clean text file `corpus_clean.txt`. In order to train and obtain a word embedding, run the following command (example usage):
+After downloading and extracting the zip file, and also preprocessing steps you will get the clean text file. Let's call the clean text file `corpus_clean.txt`. In order to train and obtain a word embedding, you only need to run the following command (example usage):
 
 ```
 $ python svdns.py -input corpus_clean.txt -output svdns_embedding_d300.txt -mincount 10 -windowsize 10 -dimension 300
