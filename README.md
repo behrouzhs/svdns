@@ -40,7 +40,7 @@ C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\S
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\VC\lib
 ```
 
-If none of the above worked (or you just want to use my precompiled binaries for 64bit Windows) copy the executable files from `win64_binaries` and put them besides the Python script. Then you will be able to run the script with no issues.
+**__If none of the above worked (or you just want to use my precompiled binaries for 64bit Windows) copy the executable files from `win64_binaries` and put them besides the Python script. Then you will be able to run the script with no issues.__**
 
 ## Running the software to train a word embedding
 
