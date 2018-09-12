@@ -37,7 +37,7 @@ For this purpose, you need to have a large text corpus (e.g Wikipedia) in a sing
 
 These types of corpuses require a lot of preprocessing such as removing HTML tags and structure to get clean text from it, handling or removing special characters, etc. We will not go through the details of preprocessing but it is a neccessary step in order to get a high quality embedding with meaningful and manageable sized vocabulary.
 
-After downloading and extracting the zip file, and also preprocessing steps you will get the clean text file. Let's call the clean text file `corpus_clean.txt`. In order to train and obtain a word embedding, you only need to run the following command (example usage):
+After downloading and extracting the zip file, and also preprocessing steps you will get the clean text file. Let's call the clean text file `corpus_clean.txt`. **__In order to train and obtain a word embedding, you only need to run the following command (example usage):__**
 
 ```
 $ python svdns.py -input corpus_clean.txt -output svdns_embedding_d300.txt -mincount 10 -windowsize 10 -dimension 300
