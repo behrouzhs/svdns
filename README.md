@@ -40,7 +40,7 @@ These types of corpuses require a lot of preprocessing such as removing HTML tag
 After downloading and extracting the zip file, and also preprocessing steps you will get the clean text file. Let's call the clean text file `corpus_clean.txt`. **__In order to train and obtain a word embedding, you only need to run the following command (example usage):__**
 
 ```
-$ python svdns.py -input corpus_clean.txt -output svdns_embedding_d300.txt -mincount 10 -windowsize 10 -dimension 300
+$ python svdns.py -input corpus_clean.txt -output svdns_embedding_d300.txt -mincount 10 -dimension 300
 ```
 
 After running the above command, `svdns_embedding_d300.txt` will be generated which contains the word embeddings. Each row will contain a word and its corresponding vector representation.
