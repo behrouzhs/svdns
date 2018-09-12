@@ -200,7 +200,7 @@ def main():
     parser = argparse.ArgumentParser(description='SVD-NS program for learning word embeddings.')
     parser.add_argument('-input', required=False, dest='input', default='corpus.txt')
     parser.add_argument('-vocab', required=False, dest='vocab', default='')
-    parser.add_argument('-cooccur', required=False, dest='cooccur', default='cooccurrence.bin')
+    parser.add_argument('-cooccur', required=False, dest='cooccur', default='')
     parser.add_argument('-output', required=False, dest='output', default='embedding.txt')
     parser.add_argument('-maxvocab', required=False, dest='max_vocab', type=int, default=0)
     parser.add_argument('-mincount', required=False, dest='min_count', type=int, default=10)
@@ -218,12 +218,14 @@ def main():
         if args.vocab == '' or os.path.exists(args.vocab) is False:
             args.vocab = 'vocab.txt' if args.vocab == '' else args.vocab
             run_vocab(exec_vocab, input_path=args.input, output_path=args.vocab, min_count=args.min_count, max_vocab=args.max_vocab, verbose=args.verbose)
-        run_cooccur(exec_cooccur, input_path=args.input, vocab_path=args.vocab, output_path=args.cooccur, window_size=args.window_size, dist_weight=args.dist_weight, verbose=args.verbose)
+        run_cooccur(exec_cooccur, input_path=args.input, vocab_path=args.vocab, output_path=('cooccurrence.bin' if args.cooccur == '' else args.cooccur), window_size=args.window_size, dist_weight=args.dist_weight, verbose=args.verbose)
         if args.engine.lower() == 'python' or (args.engine.lower() == 'auto' and mp.cpu_count() > 4):
-            run_svdns_python(input_path=args.cooccur, vocab_path=args.vocab, output_path=args.output, pmi_cutoff=args.pmi_cutoff, pmi_shift=args.pmi_shift, dimension=args.dimension, verbose=args.verbose)
+            run_svdns_python(input_path=('cooccurrence.bin' if args.cooccur == '' else args.cooccur), vocab_path=args.vocab, output_path=args.output, pmi_cutoff=args.pmi_cutoff, pmi_shift=args.pmi_shift, dimension=args.dimension, verbose=args.verbose)
         else:
-            run_svdns_c(exec_svdns, input_path=args.cooccur, vocab_path=args.vocab, output_path=args.output, pmi_cutoff=args.pmi_cutoff, pmi_shift=args.pmi_shift, dimension=args.dimension, thread=args.thread, verbose=args.verbose)
-    elif os.path.exists(args.cooccur):
+            run_svdns_c(exec_svdns, input_path=('cooccurrence.bin' if args.cooccur == '' else args.cooccur), vocab_path=args.vocab, output_path=args.output, pmi_cutoff=args.pmi_cutoff, pmi_shift=args.pmi_shift, dimension=args.dimension, thread=args.thread, verbose=args.verbose)
+        if args.cooccur == '':
+            os.remove('cooccurrence.bin')
+    elif args.cooccur != '' and os.path.exists(args.cooccur):
         if os.path.exists(args.vocab) is True:
             if args.engine.lower() == 'python' or (args.engine.lower() == 'auto' and mp.cpu_count() > 4):
                 run_svdns_python(input_path=args.cooccur, vocab_path=args.vocab, output_path=args.output, pmi_cutoff=args.pmi_cutoff, pmi_shift=args.pmi_shift, dimension=args.dimension, verbose=args.verbose)
