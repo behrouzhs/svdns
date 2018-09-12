@@ -19,15 +19,13 @@ For this purpose, you need to have a large text corpus (e.g Wikipedia) in a sing
 
 These types of corpuses require a lot of preprocessing such as removing HTML tags and structure to get clean text from it, handling or removing special characters, etc. We will not go through the details of preprocessing but it is a neccessary step in order to get a high quality embedding with meaningful and manageable sized vocabulary.
 
-After downloading and extracting the zip file, and also preprocessing steps you will get the clean text file. Let's call the clean text file `corpus_clean.txt`. In order to train and obtain a word embedding, run the following 3 commands one after another:
+After downloading and extracting the zip file, and also preprocessing steps you will get the clean text file. Let's call the clean text file `corpus_clean.txt`. In order to train and obtain a word embedding, run the following command (example usage):
 
 ```
-$ ./vocab_count -min-count 5 < ./corpus_clean.txt > ./vocab.txt
-$ ./cooccur -window-size 10 -vocab-file ./vocab.txt < ./corpus_clean.txt > ./cooccurrence_matrix.bin
-$ ./svdns -pmicutoff -2.5 -shift 2.5 -dimension 100 -thread 8 -vocab ./vocab.txt -input ./cooccurrence_matrix.bin -output ./svdns_embedding_d100.txt
+$ python svdns.py -input corpus_clean.txt -output svdns_embedding_d300.txt -mincount 10 -windowsize 10 -dimension 300
 ```
 
-After running the above commands, `svdns_embedding_d100.txt` will be generated which contains the word embeddings. Each row will contain a word and its corresponding vector representation.
+After running the above command, `svdns_embedding_d300.txt` will be generated which contains the word embeddings. Each row will contain a word and its corresponding vector representation.
 
 ## Options and switches for executing the code
 
@@ -38,9 +36,9 @@ For `cooccur` you need to use a proper `-window-size`. Reasonable range for `-wi
 For our algorithm `svdns` there are several switches that can be used:
 
 * Mandatory parameters:
-  * -input \<file\>: Specifies the input co-occurrence file. This co-occurrence file is the output of `cooccur`.
-  * -vocab \<file\>: Specifies the input vocabulary file. This vocabulary file is the output of `vocab_count`.
-  * -output \<file\>: Specifies the output embedding file. The resulting word vectors will be stored in this file.
+  * -input \<file\>: Specifies the input corpus file.
+  * -vocab \<file\>: Specifies the input vocabulary file. If not specified, a file named "vocab.txt" will be generated. You can specify an existing vocabulary file to be used. This is useful if you want to run and compare multiple algorithms with the exact same vocabulary.
+  * -output \<file\>: Specifies the output embedding file. The resulting word vectors will be stored in this file. [Default: embedding.txt]
   
 * Optional parameters:
   * -pmicutoff \<float\>: Using this option will set all the PMI values less than cutoff threshold to zero and the matrix will become sparser. (default: -2.5)
