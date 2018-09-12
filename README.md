@@ -13,6 +13,16 @@ In addition to the standard C compiler, you need the following Python libraries:
 * Scipy
 * Pandas
 
+### A note for Windows users
+
+On Linux, gcc is enough for compiling and no extra configuration is needed. On Windows you may (or may not) need to configure some settings or paths. If you get error messages (related to compiler) while running the Python script, add an environment variable called `INCLUDE` and specify the path to the neccessary include directories that the compiler needs. In addition, add another environment variable called `LIB` and specify the path to the neccessary lib directories that the compiler needs. In my computer they are as follows:
+
+* INCLUDE
+`C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\SDK\include\ucrt;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\VC\include;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\vcpackages\IntelliSense\iOS\OSS\musl-1.1.10\include;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\vcpackages\IntelliSense\iOS\OSS\musl-1.1.10\arch\x86_64`
+
+* LIB
+`C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\SDK\lib;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\VC\lib`
+
 ## Running the software to train a word embedding
 
 For this purpose, you need to have a large text corpus (e.g Wikipedia) in a single text file. For instance, the latest dump of Wikipedia (articles in XML format) can be downloaded at: [https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2](https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2). For a more complete list please visit: [https://dumps.wikimedia.org/enwiki/latest/](https://dumps.wikimedia.org/enwiki/latest/).
@@ -29,20 +39,14 @@ After running the above command, `svdns_embedding_d300.txt` will be generated wh
 
 ## Options and switches for executing the code
 
-For `vocab_count` it is good to limit the vocabulary to the words occuring at least `-min-count` times. This option will remove extremely rare words from the vocabulary.
-
-For `cooccur` you need to use a proper `-window-size`. Reasonable range for `-window-size` is between 5 and 15.
-
-For our algorithm `svdns` there are several switches that can be used:
-
 * Mandatory parameter:
   * -input \<file\>: Specifies the input corpus file.
 
 * Optional parameters:
   * -vocab \<file\>: Specifies the input vocabulary file. If not specified, a file named "vocab.txt" will be generated. You can specify an existing vocabulary file to be used. This is useful if you want to run and compare multiple algorithms with the exact same vocabulary. \[Default: vocab.txt\]
   * -output \<file\>: Specifies the output embedding file. The resulting word vectors will be stored in this file. \[Default: embedding.txt\]
-  * -maxvocab \<int\>: Upper bound on vocabulary size, i.e. keep the \<int\> most frequent words. The minimum frequency words are randomly sampled so as to obtain an even distribution over the alphabet. \[Default: 0 (no limit)\]
-  * -mincount \<int\>: Lower limit on word frequencies such that words which occur fewer than \<int\> times are discarded. \[Default: 10\]
+  * -maxvocab \<int\>: Upper bound on vocabulary size, i.e. keep the \<int\> most frequent words. The minimum frequency words are randomly sampled so as to obtain an even distribution over the alphabet. It is good to specify a limit for the vocabulary size (e.g. 250000) \[Default: 0 (no limit)\]
+  * -mincount \<int\>: Lower limit on word frequencies such that words which occur fewer than \<int\> times are discarded. This is very helpful in removing extremely eare words. \[Default: 10\]
   * -windowsize \<int\>: Number of context words to the left and to the right to be considered in the co-occurrence counts. \[Default: 10\]
   * -pmicutoff \<float\>: Filtering threshold to discard unimportant co-occurrences. Using this option will set all the PMI values less than cutoff threshold to zero and the matrix will become sparser. \[Default: -2.5\]
   * -pmishift \<float\>: It will shift all the PMI values by \<float\>. Please note that factorizing the all positive matrix practically yields better embeddings, so try to use `shift=-pmicutoff`. \[Default: 2.5\]
