@@ -20,13 +20,17 @@ On Linux, gcc is enough for compiling and no extra configuration is needed. On W
 * INCLUDE
 
 `C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\SDK\include\ucrt;
+
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\VC\include;
+
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\vcpackages\IntelliSense\iOS\OSS\musl-1.1.10\include;
+
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\vcpackages\IntelliSense\iOS\OSS\musl-1.1.10\arch\x86_64`
 
 * LIB
 
 `C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\SDK\lib;
+
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\VC\lib`
 
 ## Running the software to train a word embedding
