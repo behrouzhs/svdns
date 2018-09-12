@@ -6,7 +6,7 @@ The following instructions will get you a copy of the project up and running on 
 
 ## Requirement before running the software
 
-The Python wrapper automatically compiles the C code and runs it for you. You just need a C compiler to be installed on your system. For instance, in Linux or Mac you need to have gcc compiler and in Windows it uses Visual C++ Command-Line Compiler (cl.exe) which comes with Visual Studio and it can also be installed separately.
+The Python wrapper automatically compiles the C code and runs it for you. You just need a C compiler to be installed on your system. For instance, in Linux or Mac you need to have __gcc__ compiler and in Windows it uses __Visual C++ Command-Line Compiler (cl.exe)__ which comes with Visual Studio and it can also be installed separately.
 
 In addition to the standard C compiler, you need the following Python libraries:
 * Numpy
@@ -15,11 +15,11 @@ In addition to the standard C compiler, you need the following Python libraries:
 
 ### A note for Windows users
 
-On Linux, gcc is enough for compiling and no extra configuration is needed. On Windows you may (or may not) need to configure some settings or paths. If you get error messages (related to compiler) while running the Python script, add an environment variable called `INCLUDE` and specify the path to the neccessary include directories that the compiler needs. In addition, add another environment variable called `LIB` and specify the path to the neccessary lib directories that the compiler needs. In my computer they are as follows:
+On Linux, __gcc__ is enough for compiling and no extra configuration is needed. On Windows, if you have Visual Studio installed you should be good to go. Otherwise, please install __Visual C++ Build Tools__. After that, you probably need to add the path to your cl.exe to the __PATH__ environment variable which in my computer is `C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\VC\bin`. After that, you may (or may not) need to configure some settings or paths again. If you get error messages (related to compiler) while running the Python script, add an environment variable called __INCLUDE__ and specify the path to the neccessary include directories that the compiler needs. In addition, add another environment variable called __LIB__ and specify the path to the neccessary lib directories that the compiler needs. In my computer they are as follows:
 
 * INCLUDE
 
-`C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\SDK\include\ucrt;<br/>
+`C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\SDK\include\ucrt;
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\VC\include;
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\vcpackages\IntelliSense\iOS\OSS\musl-1.1.10\include;
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\vcpackages\IntelliSense\iOS\OSS\musl-1.1.10\arch\x86_64`
@@ -28,6 +28,8 @@ C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\vc
 
 `C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\SDK\lib;
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\VC\lib`
+
+If none of the above worked (or you just want to use my precompiled binaries for 64bit Windows) copy the executable files from `win64_binaries` and put them besides the Python script. Then you will be able to run the script with no issues.
 
 ## Running the software to train a word embedding
 
