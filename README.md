@@ -35,17 +35,21 @@ For `cooccur` you need to use a proper `-window-size`. Reasonable range for `-wi
 
 For our algorithm `svdns` there are several switches that can be used:
 
-* Mandatory parameters:
+* Mandatory parameter:
   * -input \<file\>: Specifies the input corpus file.
-  * -vocab \<file\>: Specifies the input vocabulary file. If not specified, a file named "vocab.txt" will be generated. You can specify an existing vocabulary file to be used. This is useful if you want to run and compare multiple algorithms with the exact same vocabulary.
-  * -output \<file\>: Specifies the output embedding file. The resulting word vectors will be stored in this file. [Default: embedding.txt]
-  
+
 * Optional parameters:
-  * -pmicutoff \<float\>: Using this option will set all the PMI values less than cutoff threshold to zero and the matrix will become sparser. (default: -2.5)
-  * -shift \<float\>: It will shift all the PMI values by \<float\> (default: 2.5). Please note that factorizing the all positive matrix practically yields better embeddings, so try to use `shift=-pmicutoff`
-  * -dimension \<int\>: The dimensionality of the word embedding. (default: 100)
-  * -thread \<int\>: The number of threads to use in parallel processing. (default: 4)
-  * -pmi10: calculate Pointwise Mutual Information (PMI) using base 10 logarithm. If not specified, it will use log2 by default.
+  * -vocab \<file\>: Specifies the input vocabulary file. If not specified, a file named "vocab.txt" will be generated. You can specify an existing vocabulary file to be used. This is useful if you want to run and compare multiple algorithms with the exact same vocabulary. \[Default: vocab.txt\]
+  * -output \<file\>: Specifies the output embedding file. The resulting word vectors will be stored in this file. \[Default: embedding.txt\]
+  * -maxvocab \<int\>: Upper bound on vocabulary size, i.e. keep the \<int\> most frequent words. The minimum frequency words are randomly sampled so as to obtain an even distribution over the alphabet. \[Default: 0 (no limit)\]
+  * -mincount \<int\>: Lower limit on word frequencies such that words which occur fewer than \<int\> times are discarded. \[Default: 10\]
+  * -windowsize \<int\>: Number of context words to the left and to the right to be considered in the co-occurrence counts. \[Default: 10\]
+  * -pmicutoff \<float\>: Filtering threshold to discard unimportant co-occurrences. Using this option will set all the PMI values less than cutoff threshold to zero and the matrix will become sparser. \[Default: -2.5\]
+  * -pmishift \<float\>: It will shift all the PMI values by \<float\>. Please note that factorizing the all positive matrix practically yields better embeddings, so try to use `shift=-pmicutoff`. \[Default: 2.5\]
+  * -dimension \<int\>: The dimensionality of the word embeddings. \[default: 100\]
+  * -engine \<string\>: The engine to use for SVD factorization. Valid options are `c`, `python`, and `auto`. In case of auto, it will use the Python engine if your system has more than 4 cores, otherwise it uses the C engine. For highly multicore systems (cpu_cores >= 8) the Python is faster, but with few cores the C version is faster. This is because the C version is only partially parallelized using OpenMP multithreading library. \[Default: auto\]
+  * -thread \<int\>: The number of threads to be used in parallel processing. This option is only used when using the C engine, and it is ignored in Python engine (Python automatically uses multiple cores without your control). \[default: 1\]
+  * -verbose \<int\>: Determies the amount of information to be printed in the console. Valid options are 0, 1, and 2. \[Default: 2\]
 
 ## Pre-trained word vectors
 
