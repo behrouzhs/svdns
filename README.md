@@ -28,15 +28,19 @@ On Linux, __gcc__ is enough for compiling and no extra configuration is needed. 
 
 * INCLUDE
 
-`C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\SDK\include\ucrt;
+```
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\SDK\include\ucrt;
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\VC\include;
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\vcpackages\IntelliSense\iOS\OSS\musl-1.1.10\include;
-C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\vcpackages\IntelliSense\iOS\OSS\musl-1.1.10\arch\x86_64`
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\vcpackages\IntelliSense\iOS\OSS\musl-1.1.10\arch\x86_64
+```
 
 * LIB
 
-`C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\SDK\lib;
-C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\VC\lib`
+```
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\SDK\lib;
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\SDK\ScopeCppSDK\VC\lib
+```
 
 If none of the above worked (or you just want to use my precompiled binaries for 64bit Windows) copy the executable files from `win64_binaries` and put them besides the Python script. Then you will be able to run the script with no issues.
 
