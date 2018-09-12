@@ -2,7 +2,7 @@
 
 This software learns a word embedding from the input co-occurrence matrix (preferably extracted from a large corpus such as Wikipedia). This work is published in AAAI 2018. Please refer to the paper for the description of the algorithm. And please don't forget to cite the paper if you use this.
 
-The following instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+The following instructions will get you a copy of the project up and running on your local machine for development and testing purposes. The program is written in C but there is also a Python wrapper `svdns.py` which you can use directly.
 
 ## Requirement before running the software
 
