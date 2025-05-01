@@ -5,7 +5,7 @@ This software learns a word embedding from the input co-occurrence matrix (prefe
 ```
 @inproceedings{soleimani_aaai2018_spectralembedding,
   title={Spectral word embedding with negative sampling},
-  author={Soleimani, Behrouz H and Matwin, Stan},
+  author={Soleimani, Behrouz Haji and Matwin, Stan},
   booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
   volume={32},
   number={1},
